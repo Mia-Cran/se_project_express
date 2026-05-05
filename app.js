@@ -1,0 +1,35 @@
+
+const mongoose = require("mongoose");
+const express = require("express");
+const usersRouter = require("./routes/users");
+const app = express();
+const clothingItemsRouter = require("./routes/clothingItems");
+
+
+mongoose.connect("mongodb://127.0.0.1:27017/wtwr_db")
+  .then(() => console.log("Connected to MongoDB"))
+  .catch(err => console.log(err));
+
+app.use(express.json());
+
+app.use((req, res, next) => {
+  req.user = {
+    _id: "69fa6b99e9ecea7eeca01c45",
+  };
+  next();
+});
+
+app.use(usersRouter);
+app.use(clothingItemsRouter);
+
+
+// basic route (test)
+app.get("/", (req, res) => {
+  res.send("Server updated!");
+});
+
+const PORT = 3001;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
