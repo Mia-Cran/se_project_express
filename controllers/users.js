@@ -1,5 +1,5 @@
-const User = require("../models/user");
-const { BAD_REQUEST, NOT_FOUND, SERVER_ERROR } = require("../utils/errors");
+const User = require('../models/user');
+const { BAD_REQUEST, NOT_FOUND, SERVER_ERROR } = require('../utils/errors');
 
 // GET all users
 module.exports.getUsers = (req, res) => {
@@ -20,17 +20,17 @@ module.exports.getUser = (req, res) => {
     .catch((err) => {
       console.error(err);
 
-      if (err.name === "CastError") {
+      if (err.name === 'CastError') {
         res.status(BAD_REQUEST).send({
-          message: "Invalid user ID",
+          message: 'Invalid user ID',
         });
-      } else if (err.name === "DocumentNotFoundError") {
+      } else if (err.name === 'DocumentNotFoundError') {
         res.status(NOT_FOUND).send({
-          message: "User not found",
+          message: 'User not found',
         });
       } else {
         res.status(SERVER_ERROR).send({
-          message: "An error has occurred on the server.",
+          message: 'An error has occurred on the server.',
         });
       }
     });
@@ -43,13 +43,13 @@ module.exports.createUser = (req, res) => {
     .catch((err) => {
       console.error(err);
 
-      if (err.name === "ValidationError") {
+      if (err.name === 'ValidationError') {
         res.status(BAD_REQUEST).send({
-          message: "Invalid data passed for user creation",
+          message: 'Invalid data passed for user creation',
         });
       } else {
         res.status(SERVER_ERROR).send({
-          message: "An error has occurred on the server.",
+          message: 'An error has occurred on the server.',
         });
       }
     });

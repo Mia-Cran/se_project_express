@@ -1,5 +1,5 @@
-const ClothingItem = require("../models/clothingItem");
-const { BAD_REQUEST, NOT_FOUND, SERVER_ERROR } = require("../utils/errors");
+const ClothingItem = require('../models/clothingItem');
+const { BAD_REQUEST, NOT_FOUND, SERVER_ERROR } = require('../utils/errors');
 
 module.exports.getItem = (req, res) => {
   ClothingItem.findById(req.params.itemId)
@@ -8,17 +8,17 @@ module.exports.getItem = (req, res) => {
     .catch((err) => {
       console.error(err);
 
-      if (err.name === "CastError") {
+      if (err.name === 'CastError') {
         res.status(BAD_REQUEST).send({
-          message: "Invalid item ID",
+          message: 'Invalid item ID',
         });
-      } else if (err.name === "DocumentNotFoundError") {
+      } else if (err.name === 'DocumentNotFoundError') {
         res.status(NOT_FOUND).send({
-          message: "Item not found",
+          message: 'Item not found',
         });
       } else {
         res.status(SERVER_ERROR).send({
-          message: "An error has occurred on the server.",
+          message: 'An error has occurred on the server.',
         });
       }
     });
@@ -41,13 +41,13 @@ module.exports.createItem = (req, res) => {
     .catch((err) => {
       console.error(err);
 
-      if (err.name === "ValidationError") {
+      if (err.name === 'ValidationError') {
         res.status(BAD_REQUEST).send({
-          message: "Invalid data passed for item creation",
+          message: 'Invalid data passed for item creation',
         });
       } else {
         res.status(SERVER_ERROR).send({
-          message: "An error has occurred on the server.",
+          message: 'An error has occurred on the server.',
         });
       }
     });
@@ -61,17 +61,17 @@ module.exports.deleteItem = (req, res) => {
     .catch((err) => {
       console.error(err);
 
-      if (err.name === "CastError") {
+      if (err.name === 'CastError') {
         res.status(BAD_REQUEST).send({
-          message: "Invalid item ID",
+          message: 'Invalid item ID',
         });
-      } else if (err.name === "DocumentNotFoundError") {
+      } else if (err.name === 'DocumentNotFoundError') {
         res.status(NOT_FOUND).send({
-          message: "Item not found",
+          message: 'Item not found',
         });
       } else {
         res.status(SERVER_ERROR).send({
-          message: "An error has occurred on the server.",
+          message: 'An error has occurred on the server.',
         });
       }
     });
@@ -85,17 +85,17 @@ module.exports.likeItem = (req, res) => {
     .orFail()
     .then((item) => res.send(item))
     .catch((err) => {
-      if (err.name === "CastError") {
+      if (err.name === 'CastError') {
         res.status(BAD_REQUEST).send({
-          message: "Invalid item ID",
+          message: 'Invalid item ID',
         });
-      } else if (err.name === "DocumentNotFoundError") {
+      } else if (err.name === 'DocumentNotFoundError') {
         res.status(NOT_FOUND).send({
-          message: "Item not found",
+          message: 'Item not found',
         });
       } else {
         res.status(SERVER_ERROR).send({
-          message: "An error has occurred on the server.",
+          message: 'An error has occurred on the server.',
         });
       }
     });
@@ -110,17 +110,17 @@ module.exports.dislikeItem = (req, res) => {
     .orFail()
     .then((item) => res.send(item))
     .catch((err) => {
-      if (err.name === "CastError") {
+      if (err.name === 'CastError') {
         res.status(BAD_REQUEST).send({
-          message: "Invalid item ID",
+          message: 'Invalid item ID',
         });
-      } else if (err.name === "DocumentNotFoundError") {
+      } else if (err.name === 'DocumentNotFoundError') {
         res.status(NOT_FOUND).send({
-          message: "Item not found",
+          message: 'Item not found',
         });
       } else {
         res.status(SERVER_ERROR).send({
-          message: "An error has occurred on the server.",
+          message: 'An error has occurred on the server.',
         });
       }
     });
