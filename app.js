@@ -21,11 +21,6 @@ app.use((req, res, next) => {
 app.use(usersRouter);
 app.use(clothingItemsRouter);
 
-// basic route (test)
-app.get('/', (req, res) => {
-  res.send('Server updated!');
-});
-
 const PORT = 3001;
 
 app.use((req, res) => {

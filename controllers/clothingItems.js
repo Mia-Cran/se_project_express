@@ -28,7 +28,13 @@ module.exports.getItem = (req, res) => {
 module.exports.getItems = (req, res) => {
   ClothingItem.find({})
     .then((items) => res.send(items))
-    .catch((err) => res.status(500).send(err));
+    .catch((err) => {
+      console.error(err);
+
+      res.status(SERVER_ERROR).send({
+        message: 'An error has occurred on the server.',
+      });
+    });
 };
 
 // CREATE item
@@ -37,7 +43,7 @@ module.exports.createItem = (req, res) => {
     ...req.body,
     owner: req.user._id,
   })
-    .then((item) => res.send(item))
+    .then((item) => res.status(201).send(item))
     .catch((err) => {
       console.error(err);
 

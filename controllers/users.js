@@ -43,7 +43,7 @@ module.exports.getUser = (req, res) => {
 // CREATE user
 module.exports.createUser = (req, res) => {
   User.create(req.body)
-    .then((user) => res.send(user))
+    .then((user) => res.status(201).send(user))
     .catch((err) => {
       console.error(err);
 
