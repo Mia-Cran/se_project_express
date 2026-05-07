@@ -11,7 +11,7 @@ router.delete('/items/:itemId', clothingItems.deleteItem);
 router.put('/items/:itemId/likes', clothingItems.likeItem);
 router.delete(
   '/items/:itemId/likes',
-  clothingItems.dislikeItem,
+  clothingItems.dislikeItem
 );
 
 module.exports = router;

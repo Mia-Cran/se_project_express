@@ -8,7 +8,11 @@ module.exports.getUsers = (req, res) => {
       res.send(users);
     })
     .catch((err) => {
-      res.status(500).send(err);
+      console.error(err);
+
+      res.status(SERVER_ERROR).send({
+        message: 'An error has occurred on the server.',
+      });
     });
 };
 
