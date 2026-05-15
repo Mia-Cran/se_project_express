@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const usersRouter = require('./routes/users');
+const auth = require('./middlewares/auth');
 
 const app = express();
 const clothingItemsRouter = require('./routes/clothingItems');
@@ -11,14 +12,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/wtwr_db')
 
 app.use(express.json());
 
-app.use((req, res, next) => {
-  req.user = {
-    _id: '69fa6b99e9ecea7eeca01c45',
-  };
-  next();
-});
-
 app.use(usersRouter);
+app.use(auth);
 app.use(clothingItemsRouter);
 
 const PORT = 3001;
