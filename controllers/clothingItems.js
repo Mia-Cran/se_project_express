@@ -1,5 +1,10 @@
 const ClothingItem = require('../models/clothingItem');
-const { BAD_REQUEST, NOT_FOUND, SERVER_ERROR } = require('../utils/errors');
+const {
+  BAD_REQUEST,
+  NOT_FOUND,
+  SERVER_ERROR,
+  FORBIDDEN,
+} = require('../utils/errors');
 
 module.exports.getItem = (req, res) => {
   ClothingItem.findById(req.params.itemId)
@@ -61,9 +66,19 @@ module.exports.createItem = (req, res) => {
 
 // DELETE item
 module.exports.deleteItem = (req, res) => {
-  ClothingItem.findByIdAndDelete(req.params.itemId)
+  ClothingItem.findById(req.params.itemId)
     .orFail()
-    .then((item) => res.send(item))
+    .then((item) => {
+      if (item.owner.toString() !== req.user._id) {
+        return res.status(FORBIDDEN).send({
+          message: 'You are not authorized to delete this item',
+        });
+      }
+
+      return ClothingItem.findByIdAndDelete(req.params.itemId).then(
+        (deletedItem) => res.send(deletedItem),
+      );
+    })
     .catch((err) => {
       console.error(err);
 
@@ -82,6 +97,7 @@ module.exports.deleteItem = (req, res) => {
       }
     });
 };
+
 module.exports.likeItem = (req, res) => {
   ClothingItem.findByIdAndUpdate(
     req.params.itemId,

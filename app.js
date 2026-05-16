@@ -1,3 +1,4 @@
+const cors = require('cors');
 const mongoose = require('mongoose');
 const express = require('express');
 const usersRouter = require('./routes/users');
@@ -11,6 +12,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/wtwr_db')
   .catch((err) => console.log(err));
 
 app.use(express.json());
+app.use(cors());
 
 app.use(usersRouter);
 app.use(auth);

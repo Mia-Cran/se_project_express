@@ -1,4 +1,5 @@
-const express = require("express");
+const express = require('express');
+const auth = require('../middlewares/auth');
 
 const {
   getUsers,
@@ -7,16 +8,15 @@ const {
   login,
   getCurrentUser,
   updateCurrentUser,
-} = require("../controllers/users");
+} = require('../controllers/users');
 
 const router = express.Router();
 
-router.get("/users/me", getCurrentUser);
-router.patch("/users/me", updateCurrentUser);
-router.get("/users", getUsers);
-router.get("/users/:userId", getUser);
-router.post("/users", createUser);
-router.post("/signup", createUser);
-router.post("/signin", login);
+router.get('/users/me', auth, getCurrentUser);
+router.patch('/users/me', auth, updateCurrentUser);
+router.get('/users', getUsers);
+router.get('/users/:userId', getUser);
+router.post('/users', createUser);
+router.post('/signup', createUser);
+router.post('/signin', login);
 module.exports = router;
-
