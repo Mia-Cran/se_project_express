@@ -45,6 +45,8 @@ The server includes custom error handling for:
 
 ## Running the Project
 
+Video Pitch: Here is the my updated google link to watch the video: https://drive.google.com/file/d/1ApAazfSBXrEnCBIOnetQ7XtmciaH-BUJ/view?usp=drive_link
+
 ```bash
 npm install
 npm run dev
