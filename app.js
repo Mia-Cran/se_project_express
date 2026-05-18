@@ -2,6 +2,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const express = require('express');
 const usersRouter = require('./routes/users');
+
 const app = express();
 const clothingItemsRouter = require('./routes/clothingItems');
 const { NOT_FOUND } = require('./utils/errors');
