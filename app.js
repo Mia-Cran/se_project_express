@@ -1,11 +1,15 @@
 const cors = require('cors');
 const mongoose = require('mongoose');
 const express = require('express');
-const usersRouter = require('./routes/users');
+const { errors } = require('celebrate');
 
-const app = express();
+const usersRouter = require('./routes/users');
 const clothingItemsRouter = require('./routes/clothingItems');
 const { NOT_FOUND } = require('./utils/errors');
+const errorHandler = require('./middlewares/error-handler');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+
+const app = express();
 
 mongoose.connect('mongodb://127.0.0.1:27017/wtwr_db')
   .then(() => console.log('Connected to MongoDB'))
@@ -13,6 +17,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/wtwr_db')
 
 app.use(express.json());
 app.use(cors());
+
+app.use(requestLogger);
 
 app.use((req, res, next) => {
   req.user = {
@@ -32,6 +38,12 @@ app.use((req, res) => {
     message: 'Requested resource not found',
   });
 });
+
+app.use(errorLogger);
+
+app.use(errors());
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
