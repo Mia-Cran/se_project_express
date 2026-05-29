@@ -18,7 +18,7 @@ Backend API: https://api.maria-wtwr.jumpingcrab.com
 
 Frontend GitHub Repository: https://github.com/Mia-Cran/se_project_react
 
-Project Pitch Video: https://drive.google.com/file/d/1ApAazfSBXrEnCBIOnetQ7XtmciaH-BUJ/view?usp=drive_link
+Project Pitch Video: https://drive.google.com/file/d/1FFP9MMLMoO-AWHjVy0Ns6Cu43_VLxcXR/view?usp=sharing
 
 ## Main Routes
 
