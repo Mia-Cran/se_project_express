@@ -8,7 +8,7 @@ const {
   CONFLICT,
   UNAUTHORIZED,
 } = require('../utils/errors');
-const { JWT_SECRET } = require('../utils/config');
+const { JWT_SECRET } = require('../config');
 
 // GET all users
 module.exports.getUsers = (req, res) => {
