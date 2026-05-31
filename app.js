@@ -7,13 +7,17 @@ const { errors } = require('celebrate');
 
 const usersRouter = require('./routes/users');
 const clothingItemsRouter = require('./routes/clothingItems');
-const { NOT_FOUND } = require('./utils/errors');
+const { createUser, login } = require('./controllers/users');
+const { validateUserBody, validateLogin } = require('./middlewares/validation');
+
+const NotFoundError = require('./errors/NotFoundError');
 const errorHandler = require('./middlewares/error-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 
-mongoose.connect('mongodb://127.0.0.1:27017/wtwr_db')
+mongoose
+  .connect('mongodb://127.0.0.1:27017/wtwr_db')
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.log(err));
 
@@ -36,15 +40,16 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.use(usersRouter);
-app.use(clothingItemsRouter);
+app.post('/signup', validateUserBody, createUser);
+app.post('/signin', validateLogin, login);
+
+app.use('/users', usersRouter);
+app.use('/items', clothingItemsRouter);
 
 const PORT = 3001;
 
-app.use((req, res) => {
-  res.status(NOT_FOUND).send({
-    message: 'Requested resource not found',
-  });
+app.use((req, res, next) => {
+  next(new NotFoundError('Requested resource not found'));
 });
 
 app.use(errorLogger);
