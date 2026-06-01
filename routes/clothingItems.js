@@ -9,12 +9,12 @@ const {
 const router = express.Router();
 
 router.get('/', clothingItems.getItems);
-router.get('/itemId', validateItemId, clothingItems.getItem);
+router.get('/:itemId', validateItemId, clothingItems.getItem);
 router.post('/', auth, validateClothingItemBody, clothingItems.createItem);
-router.delete('/itemId', auth, validateItemId, clothingItems.deleteItem);
-router.put('/itemId/likes', auth, validateItemId, clothingItems.likeItem);
+router.delete('/:itemId', auth, validateItemId, clothingItems.deleteItem);
+router.put('/:itemId/likes', auth, validateItemId, clothingItems.likeItem);
 router.delete(
-  '/itemId/likes',
+  '/:itemId/likes',
   auth,
   validateItemId,
   clothingItems.dislikeItem,
